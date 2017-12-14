@@ -60,7 +60,6 @@ function createWindow () {
 
   ipcMain.on('directory-list', (e) => {
 
-      e.returnValue =  files //should send a random element
-
+      e.returnValue =  files //should send a random element - save which has been sent so no two are sent
 
   })
