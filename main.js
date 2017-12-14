@@ -1,15 +1,22 @@
-const {app, BrowserWindow, dialog} = require('electron')
+/*
+author David Sherlock
+*/
+
+const {app, BrowserWindow, dialog, ipcMain} = require('electron')
 const fs = require('fs');
 
 const url = require('url')
 const path = require('path')
+const assetPath = path.join(__dirname, 'assets')
+var files = []
+
 
 app.on('ready', createWindow)
 
-let win
 
 function createWindow () {
     // Create the browser window.
+    console.log("opening window")
     win = new BrowserWindow({width: 800, height: 600})
   
     // and load the index.html of the app.
@@ -30,3 +37,30 @@ function createWindow () {
       win = null
     })
   }
+
+
+  fs.readdir(assetPath, function(err,list){
+    if(err) throw err;
+    for(var i=0; i<list.length; i++)
+    {
+      
+            files.push(list[i]); //store the file name into the array files
+
+
+    }
+    });
+
+  ipcMain.on('resize', function (e, x, y) {
+    win.setSize(x, y)
+  })
+
+  ipcMain.on('save', function (e, saveData) {
+    //do something with save data
+  })
+
+  ipcMain.on('directory-list', (e) => {
+
+      e.returnValue =  files //should send a random element
+
+
+  })

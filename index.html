@@ -1,0 +1,30 @@
+<title>trying it again</title>
+<button id="changesize">click</button>
+<button id="getdirectory">files</button>
+
+<script>
+  var ipcRenderer = require('electron').ipcRenderer; 
+  var btn = document.querySelector('#changesize')
+  btn.addEventListener('click', function (e) {
+    e.preventDefault()
+    ipcRenderer.send('resize', 600, 800)
+  })
+
+        var btn2 = document.querySelector("#getdirectory")
+        btn2.addEventListener('click', function (e) {
+        alert("matt ahrdy")
+           alert(ipcRenderer.sendSync('directory-list'))
+        })
+
+
+ </script>
+
+
+
+<!--
+<script>
+alert(ipcRenderer.sendSync('directory-list'))
+alert("yes")
+alert(win.dir[1])
+</script>
+-->
